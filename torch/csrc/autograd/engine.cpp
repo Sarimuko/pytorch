@@ -594,13 +594,18 @@ void validate_outputs(
     }
     if (!grad.sizes().equals(metadata.shape())) {
       if (!at::is_expandable_to(metadata.shape(), grad.sizes())) {
-        std::stringstream ss;
-        ss << "invalid gradient at index " << i << " - got ";
-        ss << grad.sizes() << " but expected shape compatible with ";
-        ss << metadata.shape();
-        AT_ERROR(format_error(ss.str()));
+        // std::stringstream ss;
+        // ss << "invalid gradient at index " << i << " - got ";
+        // ss << grad.sizes() << " but expected shape compatible with ";
+        // ss << metadata.shape();
+        // AT_ERROR(format_error(ss.str()));
+      }else
+      {
+        if (metadata.shape().size() == grad.sizes().size() && std::equal(metadata.shape().begin() + 1, metadata.shape().end(), grad.sizes().begin()+1) && grad.sizes()[0] == 2 * metadata.shape()[0]){
+        }else{
+          grad = at::sum_to(std::move(grad), metadata.shape());
+        }
       }
-      grad = at::sum_to(std::move(grad), metadata.shape());
     }
 
     bool input_is_complex = isComplexType(c10::typeMetaToScalarType(metadata.options().dtype()));

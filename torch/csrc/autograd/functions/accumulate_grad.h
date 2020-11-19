@@ -134,7 +134,8 @@ struct TORCH_API AccumulateGrad : public Node {
           update_grad(new_grad.clone());
         } else {
           // Deep copies new_grad according to the "Gradient Layout Contract."
-          update_grad(utils::clone_obey_contract(new_grad, variable));
+          update_grad(new_grad.clone());
+          // update_grad(utils::clone_obey_contract(new_grad, variable));
         }
       }
     } else if (!GradMode::is_enabled()) {
