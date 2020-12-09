@@ -177,11 +177,11 @@ void check_variable_result(const Variable& original, const Variable& result, std
     throw std::runtime_error(ss.str());
   }
 
-  if (original.sizes().vec() != result.sizes().vec()) {
-    std::stringstream ss;
-    ss << "hook '" << hook_name << "' has changed the size of value";
-    throw std::runtime_error(ss.str());
-  }
+  // if (original.sizes().vec() != result.sizes().vec()) {
+  //   std::stringstream ss;
+  //   ss << "hook '" << hook_name << "' has changed the size of value";
+  //   throw std::runtime_error(ss.str());
+  // }
 }
 
 void AutogradContext::save_for_backward(variable_list to_save) {

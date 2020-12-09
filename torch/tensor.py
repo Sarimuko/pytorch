@@ -350,6 +350,7 @@ class Tensor(torch._C._TensorBase):
                 if grad.is_sparse:
                     var._grad = grad.clone()
                 else:
+                    print(grad.shape)
                     var._grad = grad.clone(memory_format=torch.contiguous_format)
             else:
                 var._grad = var._grad + grad

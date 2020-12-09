@@ -601,7 +601,7 @@ void validate_outputs(
         // AT_ERROR(format_error(ss.str()));
       }else
       {
-        if (metadata.shape().size() + 1 == grad.sizes().size() && std::equal(metadata.shape().begin() + 1, metadata.shape().end(), grad.sizes().begin()+2) && grad.sizes()[1] == 2 * metadata.shape()[0]){
+        if (metadata.shape().size() + 1 == grad.sizes().size() && std::equal(metadata.shape().begin() + 1, metadata.shape().end() - 1, grad.sizes().begin()+2, grad.sizes().end() - 1) && grad.sizes()[1] == 2 * metadata.shape()[0]){
         }else{
           grad = at::sum_to(std::move(grad), metadata.shape());
         }
